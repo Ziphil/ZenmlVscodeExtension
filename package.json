@@ -1,0 +1,37 @@
+{
+  "name": "zenml",
+  "displayName": "ZenML",
+  "description": "Syntax highlighting for ZenML",
+  "version": "0.0.0",
+  "publisher": "Ziphil",
+  "main": "",
+  "categories": [
+    "Programming Languages",
+    "Language Packs"
+  ],
+  "engines": {
+    "vscode": "^1.5.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "zml",
+        "aliases": [
+          "ZenML",
+          "zml"
+        ],
+        "extensions": [
+          ".zml"
+        ],
+        "configuration": "./language/configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "zml",
+        "scopeName": "text.zml",
+        "path": "./language/syntax.json"
+      }
+    ]
+  }
+}
