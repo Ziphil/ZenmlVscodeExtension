@@ -2,7 +2,7 @@
   "name": "zenml",
   "displayName": "ZenML",
   "description": "Provides language support for ZenML",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publisher": "Ziphil",
   "categories": [
     "Programming Languages",
