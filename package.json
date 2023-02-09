@@ -1,8 +1,8 @@
 {
   "name": "zenml",
   "displayName": "ZenML",
-  "description": "Syntax highlighting for ZenML",
-  "version": "0.0.0",
+  "description": "Provides language support for ZenML",
+  "version": "0.0.1",
   "publisher": "Ziphil",
   "categories": [
     "Programming Languages",
