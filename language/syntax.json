@@ -1,0 +1,674 @@
+{
+  "fileTypes": [
+    "zml"
+  ],
+  "foldingStartMarker": "<\\s*$",
+  "foldingStopMarker": "^\\s*>$",
+  "keyEquivalent": "^~Z",
+  "name": "ZenML",
+  "patterns": [
+    {
+      "include": "#main"
+		}
+  ],
+  "repository": {
+    "main": {
+      "patterns": [
+        {
+          "include": "#escapes"
+        },
+        {
+          "include": "#processingTags"
+        },
+        {
+          "include": "#functionTags"
+        },
+        {
+          "include": "#tags"
+        },
+        {
+          "include": "#macros"
+        },
+        {
+          "include": "#brackets"
+        },
+        {
+          "include": "#slashes"
+        },
+        {
+          "include": "#comments"
+        }
+      ]
+    },
+    "mainWithoutTags": {
+      "patterns": [
+        {
+          "include": "#escapes"
+        }
+      ]
+    },
+    "tags": {
+      "patterns": [
+        {
+          "comment": "raw elements (marked with '~') with attributes",
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*~(?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributesWithoutTags"
+            }
+          ]
+        },
+        {
+          "comment": "elements with attributes",
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributes"
+            }
+          ]
+        },
+        {
+          "comment": "raw elements (marked with '~') without attributes",
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*~(?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mainWithoutTags"
+            }
+          ]
+        },
+        {
+          "comment": "elements with attributes",
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        },
+        {
+          "comment": "empty elements",
+          "match": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(>|;)",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        },
+        {
+          "match": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            }
+          }
+        },
+        {
+          "begin": "(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "begin": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*~(?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributesWithoutTags"
+            }
+          ]
+        },
+        {
+          "begin": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributes"
+            }
+          ]
+        },
+        {
+          "begin": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*~(?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mainWithoutTags"
+            }
+          ]
+        },
+        {
+          "begin": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        },
+        {
+          "match": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))[\\s\\n]*(>|;)",
+          "captures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        },
+        {
+          "match": "(&[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*))",
+          "captures": {
+            "1": {
+              "name": "entity.name.macro.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.zml"
+            }
+          }
+        }
+      ]
+    },
+    "processingTags": {
+      "patterns": [
+        {
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*\\?(?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributesWithoutTags"
+            }
+          ]
+        },
+        {
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*\\?(?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mainWithoutTags"
+            }
+          ]
+        },
+        {
+          "match": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*\\?(?:\\*|~|\\+)*))[\\s\\n]*(>|;)",
+          "captures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        }
+      ]
+    },
+    "functionTags": {
+      "patterns": [
+        {
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*!(?:\\*|~|\\+)*))[\\s\\n]*(\\|)",
+          "end": "(>|;)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.attribute.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributes"
+            }
+          ]
+        },
+        {
+          "begin": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*!(?:\\*|~|\\+)*))[\\s\\n]*(<)",
+          "end": "(>)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        },
+        {
+          "match": "(\\\\[^\\&<>'\"\\{\\}\\[\\]/\\\\|#|;|\\s]+((?:\\*|~|\\+)*!(?:\\*|~|\\+)*))[\\s\\n]*(>|;)",
+          "captures": {
+            "1": {
+              "name": "entity.name.processing.zml"
+            },
+            "2": {
+              "name": "punctuation.mark.processing.zml"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        }
+      ]
+    },
+    "escapes": {
+      "patterns": [
+        {
+          "old_match": "(`[\\&<>'\"\\{\\}\\[\\]/\\\\|`#])",
+          "match": "(`.)",
+          "captures": {
+            "1": {
+              "name": "constant.character.entity.zml"
+            }
+          }
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+        {
+          "match": "([^\\s=\"\\|<,]+)[\\s\\n]*(=)?",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.zml"
+            }
+          }
+        },
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.zml",
+          "patterns": [
+            {
+              "include": "#escapes"
+            }
+          ]
+        },
+        {
+          "match": "(\\|)[\\s\\n]*(?=(;))",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        },
+        {
+          "begin": "(\\|)[\\s\\n]*(<)",
+          "end": "(?=(>))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        },
+        {
+          "match": "(\\|)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            }
+          }
+        }
+      ]
+    },
+    "attributesWithoutTags": {
+      "patterns": [
+        {
+          "match": "([^\\s=\"\\|<]+)[\\s\\n]*(=)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.zml"
+            }
+          }
+        },
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.zml"
+        },
+        {
+          "match": "(\\|)[\\s\\n]*(?=(;))",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.zml"
+            }
+          }
+        },
+        {
+          "begin": "(\\|)[\\s\\n]*(<)",
+          "end": "(?=(>))",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.begin.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mainWithoutTags"
+            }
+          ]
+        },
+        {
+          "match": "(\\|)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.attribute.end.zml"
+            }
+          }
+        }
+      ]
+    },
+    "brackets": {
+      "patterns": [
+        {
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.curly.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.curly.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        },
+        {
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.bracket.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.bracket.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        }
+      ]
+		},
+		"slashes": {
+			"patterns": [
+        {
+          "begin": "/",
+          "end": "/",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.slash.begin.zml"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.slash.end.zml"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main"
+            }
+          ]
+        }
+			]
+    },
+    "comments": {
+			"patterns": [
+        {
+          "begin": "##",
+          "end": "$|\n",
+          "name": "comment.line.zml"
+        },
+        {
+          "begin": "#<",
+          "end": ">#?",
+          "name": "comment.block.zml"
+        }
+      ]
+    }
+  },
+  "scopeName": "text.zml",
+  "uuid": "B3A64888-EBBB-4436-8D9E-F1169C5D7613"
+}
