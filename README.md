@@ -1,12 +1,12 @@
 <div align="center">
-<h1>ZenML language support</h1>
+<h1>ZenML Language Support</h1>
 </div>
 
 
 ## Overview
 This package provides syntax highlighting for Zenithal Markup Language (ZenML) in VSCode.
 
-ZenML is an alternative syntax for XML with less redundancy and more readability.
+ZenML is an alternative syntax for XML with more readability and less redundancy.
 More information about ZenML can be found [here](https://github.com/Ziphil/Zenml).
 
 ## Installation
